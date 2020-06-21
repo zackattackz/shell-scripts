@@ -1,0 +1,34 @@
+#!/bin/sh
+#
+# Increment or decrement volume by $cur using pulseaudio-ctl, display new volume with volnoti
+#
+
+# Increment to use.
+incr=5
+
+cur=$(pulseaudio-ctl full-status | grep -o '^[0-9]*')
+echo $cur
+case "$1" in
+	"up")
+		pulseaudio-ctl up $incr
+		new=$(expr $cur + 5)
+		if [[ $new -le 100 ]]; then
+			volnoti-show $new
+		else
+			volnoti-show 100
+		fi
+	;;
+	"down")
+		pulseaudio-ctl down $incr
+		new=$(expr $cur - 5)
+		if [[ $new -ge 0 ]]; then
+			volnoti-show $new
+		else
+			volnoti-show 0
+		fi
+	;;
+	*)
+		echo "Unsupported: \"$1\""
+		exit 1
+esac
+

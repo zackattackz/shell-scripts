@@ -1,0 +1,18 @@
+ #!/bin/bash
+ ext="${1##*.}"
+ mpvFiles="mkv mp3 mp4 avi mov wmv flv gif ogg"
+ fehFiles="png jpg jpeg jpe"
+
+ if echo $fehFiles | grep -w $ext > /dev/null; then
+     nohup feh "$1" > /dev/null
+ elif echo $mpvFiles | grep -w $ext > /dev/null; then
+     nohup mpv --loop "$1" > /dev/null
+ elif echo $1 | grep youtube > /dev/null; then
+     nohup mpv "$1" > /dev/null
+ elif echo $1 | grep youtu.be > /dev/null; then
+     nohup mpv "$1" > /dev/null
+ elif echo $1 | grep vimeo > /dev/null; then
+     nohup mpv "$1" > /dev/null
+ else
+     nohup firefox "$1" > /dev/null
+ fi

@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Every 2 minutes check battery %, if it is 7 or 6 - warn via notify send. If % is less than or equal to 5 then hibernate
+
+while sleep 120
+do
+	BATPERC=$(cat /sys/class/power_supply/BAT0/capacity)
+	if [[ $BATPERC -eq 7 || $BATPERC -eq 6 ]]; then
+		notify-send -u critical -t 120000 "Warning" "Battery level is low! System will hibernate if battery reaches 5%"
+	elif [[ $BATPERC -le 5 ]]; then
+		notify-send -u critical -t 3000 "Hibernating..."
+		systemctl hibernate
+	fi
+
+done

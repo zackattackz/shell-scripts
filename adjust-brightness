@@ -1,0 +1,26 @@
+#!/bin/sh
+#
+# Set brightness with xbacklight, but never go below 1 (as that's "off").
+#
+
+# Increment to use.
+incr=5%
+
+cur=$(brightnessctl get)
+case "$1" in
+	"up")
+		brightnessctl set +$incr%
+	;;
+	"down")
+		if [[ $cur -le 375 ]]; then
+			brightnessctl set 5%
+		else
+			brightnessctl set $incr%-
+		fi
+	;;
+	*)
+		echo "Unsupported: \"$1\""
+		exit 1
+esac
+
+volnoti-brightness

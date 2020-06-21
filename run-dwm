@@ -1,0 +1,9 @@
+#!/bin/sh
+
+feh --bg-scale /home/zmhanham/Pictures/Wallpapers/sunlightforest.jpg
+slstatus &
+volnoti &
+dunst &
+lockloop &
+checkpower &
+exec dwm

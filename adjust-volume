@@ -7,7 +7,6 @@
 incr=5
 
 cur=$(pulseaudio-ctl full-status | grep -o '^[0-9]*')
-echo $cur
 case "$1" in
 	"up")
 		pulseaudio-ctl up $incr
@@ -26,6 +25,22 @@ case "$1" in
 		else
 			volnoti-show 0
 		fi
+	;;
+	"mute")
+        ismuted=$(pulseaudio-ctl full-status | grep -o '\s[a-z]*\s' | awk '{$1=$1;print}')
+		case "$ismuted" in
+            "yes")
+                pactl set-sink-mute 0 toggle
+                volnoti-show $cur
+            ;;
+            "no")
+                pactl set-sink-mute 0 toggle
+                volnoti-show -m
+            ;;
+            *)
+                echo "error in mute"
+                exit 1
+        esac
 	;;
 	*)
 		echo "Unsupported: \"$1\""

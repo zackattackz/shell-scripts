@@ -30,11 +30,11 @@ case "$1" in
         ismuted=$(pulseaudio-ctl full-status | grep -o '\s[a-z]*\s' | awk '{$1=$1;print}')
 		case "$ismuted" in
             "yes")
-                pactl set-sink-mute 0 toggle
+                pulseaudio-ctl mute
                 volnoti-show $cur
             ;;
             "no")
-                pactl set-sink-mute 0 toggle
+                pulseaudio-ctl mute
                 volnoti-show -m
             ;;
             *)

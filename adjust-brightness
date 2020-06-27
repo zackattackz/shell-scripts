@@ -12,11 +12,7 @@ case "$1" in
 		brightnessctl set +$incr%
 	;;
 	"down")
-		if [[ $cur -le 375 ]]; then
-			brightnessctl set 5%
-		else
-			brightnessctl set $incr%-
-		fi
+        brightnessctl set $incr%-
 	;;
 	*)
 		echo "Unsupported: \"$1\""

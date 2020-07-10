@@ -1,6 +1,6 @@
 #!/bin/sh
 
-feh --bg-scale /home/zmhanham/Pictures/Wallpapers/sunlightforest.jpg
+feh --bg-scale /home/zmhanham/Pictures/Wallpapers/laingreen.jpg
 slstatus &
 volnoti &
 dunst &
